@@ -1,0 +1,132 @@
+/* Homepage.css - Black & White with Gradient Gold Theme */
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #000;
+    color: #fff;
+    scroll-behavior: smooth;
+  }
+  
+  .hero-section {
+    background-image: url('/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 90vh;
+    position: relative;
+  }
+  
+  .hero-section .overlay {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7));
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+    z-index: 1;
+  }
+  
+  .hero-section .container {
+    z-index: 10;
+    position: relative;
+  }
+  
+  /* AOS fallback */
+  [data-aos] {
+    opacity: 0;
+    transition-property: opacity, transform;
+    transition-duration: 800ms;
+    transition-timing-function: ease-in-out;
+  }
+  [data-aos].aos-animate {
+    opacity: 1;
+  }
+  
+  /* Gradient gold text */
+  .text-gradient {
+    background: linear-gradient(90deg, #FFD700, #FFB700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* Feature Icon Style */
+  .feature-icon svg {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: #FFD700;
+  }
+  
+  /* Footer Icons */
+  footer i {
+    color: #fff;
+    transition: color 0.3s;
+  }
+  footer i:hover {
+    color: #FFD700;
+  }
+  
+  /* Button Pulse Animation */
+  .button-pulse {
+    animation: pulse 1.8s infinite;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* Responsive Typography */
+  @media (max-width: 768px) {
+    .hero-section h1 {
+      font-size: 2.25rem;
+    }
+    .hero-section p {
+      font-size: 1rem;
+    }
+    header nav {
+      display: none;
+    }
+  }
+  
+  /* Section Backgrounds and Cards */
+  .bg-white {
+    background-color: #000 !important;
+  }
+  .bg-gray-100 {
+    background-color: #111 !important;
+  }
+  .text-black {
+    color: #fff !important;
+  }
+  .text-white {
+    color: #fff !important;
+  }
+  .bg-[#FF6B35], .bg-orange-600, .bg-[#0A2463], .hover\:bg-orange-600:hover {
+    background: linear-gradient(to right, #FFD700, #FFB700) !important;
+    color: #000 !important;
+  }
+  .hover\:text-gray-300:hover {
+    color: #FFD700 !important;
+  }
+  .border-gray-200 {
+    border-color: #333 !important;
+  }
+  .text-gray-600 {
+    color: #ccc !important;
+  }
+  .text-[#FF6B35], .text-[#0A2463] {
+    color: #FFD700 !important;
+  }
+  
+  /* Buttons */
+  button {
+    border: none;
+    font-weight: bold;
+  }
+  
