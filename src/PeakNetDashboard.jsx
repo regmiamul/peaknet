@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import { FaWifi, FaClock, FaExclamationTriangle, FaUser, FaCog } from 'react-icons/fa';
+import { FaFileInvoice, FaMoneyBillWave, FaHistory, FaUser, FaCog } from 'react-icons/fa';
+import { FaExclamationTriangle } from 'react-icons/fa'; // ✅ Missing in your code!
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'; // ✅ Also required for footer
+
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const PeakNetDashboard = () => {
   const [currentPlan] = useState({
@@ -10,43 +15,66 @@ const PeakNetDashboard = () => {
     renewalDate: "15 March 2024"
   });
 
-  const [usage] = useState({
-    used: 423,
-    total: "Unlimited",
-    percentage: 42
-  });
+  const [bills] = useState([
+    { 
+      id: 1, 
+      date: "15 Feb 2024", 
+      amount: "$99.00", 
+      status: "Paid",
+      download: "#"
+    },
+    { 
+      id: 2, 
+      date: "15 Jan 2024", 
+      amount: "$99.00", 
+      status: "Paid",
+      download: "#"
+    },
+    { 
+      id: 3, 
+      date: "15 Dec 2023", 
+      amount: "$99.00", 
+      status: "Paid",
+      download: "#"
+    }
+  ]);
 
   const [notifications] = useState([
-    { id: 1, type: 'info', message: 'Your bill is ready for payment', date: '2 days ago' },
+    { id: 1, type: 'info', message: 'Your next bill will be generated on 10 March', date: '2 days ago' },
     { id: 2, type: 'warning', message: 'Scheduled maintenance tonight 2-4am', date: '1 week ago' }
   ]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-black text-white shadow-md">
+    <div className="font-sans bg-white text-gray-900 antialiased">
+      {/* Header - Matching Homepage Style */}
+      <header className="backdrop-blur-md bg-white/90 sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-red-600 rounded-full flex items-center justify-center">
-              <span className="text-xl font-bold text-yellow-500">PN</span>
-            </div>
-            <h1 className="text-2xl font-bold">
-              <span className="text-white">Peak</span>
-              <span className="text-yellow-500">Net</span>
-            </h1>
+          <div className="flex items-center space-x-3">
+            <LazyLoadImage 
+              src="/logo.png" 
+              alt="PeakNet Logo" 
+              effect="blur"
+              className="h-10 w-auto"
+            />
+            <span className="font-bold text-xl text-[#0A2463]">PeakNet</span>
           </div>
-          <nav className="hidden md:flex space-x-6">
-            <a href="#" className="text-white hover:text-yellow-500 transition">Dashboard</a>
-            <a href="#" className="text-white hover:text-yellow-500 transition">Plans</a>
-            <a href="#" className="text-white hover:text-yellow-500 transition">Usage</a>
-            <a href="#" className="text-white hover:text-yellow-500 transition">Support</a>
+          
+          <nav className="hidden md:flex space-x-8">
+            <a href="#" className="text-sm font-medium hover:text-[#FFD700] transition-colors duration-200">Dashboard</a>
+            <a href="#" className="text-sm font-medium hover:text-[#FFD700] transition-colors duration-200">Billing</a>
+            <a href="#" className="text-sm font-medium hover:text-[#FFD700] transition-colors duration-200">Support</a>
+            <a href="#" className="text-sm font-medium hover:text-[#FFD700] transition-colors duration-200">Account</a>
           </nav>
+
           <div className="flex items-center space-x-4">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition">
-              Upgrade Plan
+            <button 
+              onClick={() => {}}
+              className="hidden sm:inline-block px-4 py-2 border border-[#0A2463] text-[#0A2463] rounded-full hover:bg-[#0A2463] hover:text-white transition-colors duration-200 text-sm font-medium"
+            >
+              Upgrade
             </button>
-            <div className="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center">
-              <FaUser className="text-black" />
+            <div className="w-10 h-10 bg-[#0A2463] rounded-full flex items-center justify-center text-white">
+              <FaUser />
             </div>
           </div>
         </div>
@@ -57,91 +85,93 @@ const PeakNetDashboard = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Current Plan Card */}
           <div className="lg:col-span-2 bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
-            <div className="bg-black text-white px-6 py-4 flex justify-between items-center">
+            <div className="bg-[#0A2463] text-white px-6 py-4 flex justify-between items-center">
               <h2 className="text-xl font-bold">Your Current Plan</h2>
-              <span className="bg-yellow-500 text-black px-3 py-1 rounded-full text-sm font-medium">
+              <span className="bg-[#FFD700] text-[#0A2463] px-3 py-1 rounded-full text-sm font-medium">
                 Active
               </span>
             </div>
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
                 <div>
-                  <h3 className="text-2xl font-bold text-black">{currentPlan.name}</h3>
+                  <h3 className="text-2xl font-bold text-[#0A2463]">{currentPlan.name}</h3>
                   <p className="text-gray-600">{currentPlan.speed} • {currentPlan.data}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-3xl font-bold text-blue-600">{currentPlan.price}</p>
+                  <p className="text-3xl font-bold text-[#0A2463]">{currentPlan.price}</p>
                   <p className="text-sm text-gray-500">Renews {currentPlan.renewalDate}</p>
                 </div>
               </div>
               
               <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="bg-gray-100 p-4 rounded-lg">
+                <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
                   <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-blue-100 rounded-full">
-                      <FaWifi className="text-blue-600" />
+                    <div className="p-2 bg-[#0A2463]/10 rounded-full">
+                      <FaFileInvoice className="text-[#0A2463]" />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">Connection</p>
-                      <p className="font-medium">Excellent</p>
+                      <p className="text-sm text-gray-500">Next Bill</p>
+                      <p className="font-medium">15 Mar 2024</p>
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-100 p-4 rounded-lg">
+                <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
                   <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-red-100 rounded-full">
-                      <FaClock className="text-red-600" />
+                    <div className="p-2 bg-[#0A2463]/10 rounded-full">
+                      <FaMoneyBillWave className="text-[#0A2463]" />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">Uptime</p>
-                      <p className="font-medium">99.98% this month</p>
+                      <p className="text-sm text-gray-500">Payment Method</p>
+                      <p className="font-medium">Credit Card ****4242</p>
                     </div>
                   </div>
                 </div>
               </div>
               
-              <button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-medium py-3 rounded-md transition">
+              <button className="w-full bg-gradient-to-r from-[#FFD700] to-[#FFB700] text-[#0A2463] font-bold py-3 rounded-lg transition hover:brightness-110">
                 Manage Plan
               </button>
             </div>
           </div>
 
-          {/* Usage Card */}
+          {/* Billing History Card */}
           <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
-            <div className="bg-black text-white px-6 py-4">
-              <h2 className="text-xl font-bold">Data Usage</h2>
+            <div className="bg-[#0A2463] text-white px-6 py-4">
+              <h2 className="text-xl font-bold">Billing History</h2>
             </div>
             <div className="p-6">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold">This Month</h3>
-                <span className="text-sm text-gray-500">{usage.used} GB used</span>
+              <div className="space-y-4">
+                {bills.map(bill => (
+                  <div key={bill.id} className="flex justify-between items-center border-b border-gray-100 pb-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 bg-gray-100 rounded-full">
+                        <FaFileInvoice className="text-[#0A2463]" />
+                      </div>
+                      <div>
+                        <p className="font-medium">{bill.date}</p>
+                        <p className="text-sm text-gray-500">Invoice #{bill.id}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-bold">{bill.amount}</p>
+                      <p className={`text-xs ${
+                        bill.status === 'Paid' ? 'text-green-500' : 'text-amber-500'
+                      }`}>
+                        {bill.status}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
-              
-              <div className="w-full bg-gray-200 rounded-full h-4 mb-2">
-                <div 
-                  className="bg-gradient-to-r from-blue-600 to-red-600 h-4 rounded-full" 
-                  style={{ width: `${usage.percentage}%` }}
-                ></div>
-              </div>
-              
-              <p className="text-sm text-gray-600 mb-6">{usage.total} data allowance</p>
-              
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Peak hours</span>
-                  <span className="font-medium">143 GB</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Off-peak</span>
-                  <span className="font-medium">280 GB</span>
-                </div>
-              </div>
+              <button className="w-full mt-6 border border-[#0A2463] text-[#0A2463] font-bold py-2 rounded-lg hover:bg-[#0A2463] hover:text-white transition">
+                View All Invoices
+              </button>
             </div>
           </div>
 
           {/* Notifications */}
           <div className="lg:col-span-3 bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
-            <div className="bg-black text-white px-6 py-4">
+            <div className="bg-[#0A2463] text-white px-6 py-4">
               <h2 className="text-xl font-bold">Notifications</h2>
             </div>
             <div className="p-6">
@@ -150,7 +180,7 @@ const PeakNetDashboard = () => {
                   {notifications.map(notification => (
                     <li key={notification.id} className="flex items-start space-x-4">
                       <div className={`p-2 rounded-full ${
-                        notification.type === 'warning' ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-blue-600'
+                        notification.type === 'warning' ? 'bg-amber-100 text-amber-600' : 'bg-blue-100 text-blue-600'
                       }`}>
                         <FaExclamationTriangle />
                       </div>
@@ -158,7 +188,7 @@ const PeakNetDashboard = () => {
                         <p className="font-medium">{notification.message}</p>
                         <p className="text-sm text-gray-500">{notification.date}</p>
                       </div>
-                      <button className="text-yellow-500 hover:text-yellow-600">
+                      <button className="text-[#0A2463] hover:text-[#FFD700]">
                         <FaCog />
                       </button>
                     </li>
@@ -172,40 +202,72 @@ const PeakNetDashboard = () => {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-black text-white py-8">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      {/* Footer - Matching Homepage Style */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="container mx-auto px-6">
+          <div className="grid md:grid-cols-4 gap-10">
             <div>
-              <h3 className="text-lg font-bold mb-4">PeakNet</h3>
-              <p className="text-gray-400">Australia's premium NBN provider</p>
+              <div className="flex items-center mb-4">
+                <LazyLoadImage 
+                  src="/logo-white.png" 
+                  alt="PeakNet Logo" 
+                  effect="blur"
+                  className="h-8 mr-2"
+                />
+                <span className="font-bold text-xl">PeakNet</span>
+              </div>
+              <p className="text-gray-400 text-sm">
+                Australia's fastest growing internet provider, committed to reliable connectivity.
+              </p>
             </div>
+
             <div>
-              <h4 className="font-bold mb-4">Services</h4>
+              <h4 className="font-bold mb-4 text-lg">Quick Links</h4>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-yellow-500 transition">NBN Plans</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-yellow-500 transition">Business Solutions</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-yellow-500 transition">Speed Test</a></li>
+                {['Dashboard', 'Billing', 'Support', 'Account'].map((link) => (
+                  <li key={link}>
+                    <a href="#" className="text-gray-400 hover:text-[#FFD700] transition-colors text-sm">
+                      {link}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
+
             <div>
-              <h4 className="font-bold mb-4">Support</h4>
+              <h4 className="font-bold mb-4 text-lg">Legal</h4>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-yellow-500 transition">Help Center</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-yellow-500 transition">Outage Map</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-yellow-500 transition">Contact Us</a></li>
+                {['Privacy Policy', 'Terms of Service', 'Acceptable Use Policy'].map((link) => (
+                  <li key={link}>
+                    <a href="#" className="text-gray-400 hover:text-[#FFD700] transition-colors text-sm">
+                      {link}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
+
             <div>
-              <h4 className="font-bold mb-4">Legal</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-yellow-500 transition">Terms of Service</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-yellow-500 transition">Privacy Policy</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-yellow-500 transition">ACCC Speed Disclosure</a></li>
-              </ul>
+              <h4 className="font-bold mb-4 text-lg">Connect</h4>
+              <div className="flex space-x-4 mb-4">
+                <a href="#" className="text-gray-400 hover:text-[#FFD700] transition-colors">
+                  <FaFacebook size={20} />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-[#FFD700] transition-colors">
+                  <FaTwitter size={20} />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-[#FFD700] transition-colors">
+                  <FaInstagram size={20} />
+                </a>
+              </div>
+              <p className="text-gray-400 text-sm">
+                support@peaknet.com.au<br />
+                1300 123 456
+              </p>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-6 text-center text-gray-400">
+
+          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
             <p>© {new Date().getFullYear()} PeakNet. All rights reserved.</p>
           </div>
         </div>
@@ -215,4 +277,3 @@ const PeakNetDashboard = () => {
 };
 
 export default PeakNetDashboard;
-

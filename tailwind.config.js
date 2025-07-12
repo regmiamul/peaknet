@@ -7,11 +7,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        gold: {
-          500: '#FFD700', // Adding gold color if you prefer it over yellow
-        },
+        primary: '#0A2463',
+        accent: '#FFD700',
+        secondary: '#E74C3C',
       },
     },
   },
+
   plugins: [],
 }
